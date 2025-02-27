@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "77765068895",
+    "project_id": "shelfit-f6a31",
+    "storage_bucket": "shelfit-f6a31.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77765068895:android:4248fce8b6b3a274ca73ea",
+        "android_client_info": {
+          "package_name": "com.example.shelfit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxDvexkR0T95KywTOX5YNG5kbqCokMwU0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
