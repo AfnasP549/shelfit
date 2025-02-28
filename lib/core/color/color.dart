@@ -25,6 +25,18 @@ class AppColor{
   //!error
   static const Color errorColor = Colors.red;
 
+  //!bottom bar
+  static const Color bottomprimary = Color.fromARGB(255, 5, 92, 103);
+  static const Color bottomsecondry = Color(0xFFD2F0EF);
+  static const Color bottomtertiary = Color.fromARGB(197, 95, 160, 169);
+
+  //!success
+  static const Color successColor = Colors.green;
+
+
+
+
+
 
 
 
