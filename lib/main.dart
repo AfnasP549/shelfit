@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/instance_manager.dart';
 import 'package:shelfit/core/color/color.dart';
+import 'package:shelfit/features/customer/controller/customer_controller.dart';
+import 'package:shelfit/features/inventory_item/controller/inventory_controller.dart';
 import 'package:shelfit/features/splash/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -10,6 +13,8 @@ void main() async{
 await Firebase.initializeApp(
   options: DefaultFirebaseOptions.currentPlatform,
 );
+Get.put(InventoryController());
+Get.put(CustomerController());
   runApp(const MyApp());
 }
 

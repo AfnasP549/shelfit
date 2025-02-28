@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shelfit/core/color/color.dart';
+import 'package:shelfit/features/customer/view/customer_screen.dart';
 import 'package:shelfit/features/inventory_item/view/inventory_screen.dart';
 import 'package:shelfit/features/inventory_item/view/add_item_screen.dart';
 
@@ -20,7 +21,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
   final List<Widget> screens = [
      InventoryScreen(),
      InventoryScreen(),
-     InventoryScreen(),
+     CustomerScreen(),
      InventoryScreen(),
    
     
@@ -69,8 +70,8 @@ class _CustomNavBarState extends State<CustomNavBar> {
                         text: 'Home',
                       ),
                       GButton(
-                        icon: Icons.home_outlined,iconSize: 32,
-                        text: 'Home',
+                        icon: Icons.person_outline_outlined,iconSize: 32,
+                        text: 'Customer',
                       ),
                       GButton(
                         icon: Icons.home_outlined,iconSize: 32,

@@ -34,6 +34,11 @@ class AppColor{
   static const Color successColor = Colors.green;
 
 
+//!edit
+  static const Color edit = Colors.blue;
+
+//!delete
+  static const Color delete = Colors.red;
 
 
 
