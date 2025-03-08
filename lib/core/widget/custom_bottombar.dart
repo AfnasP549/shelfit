@@ -3,9 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shelfit/core/color/color.dart';
-import 'package:shelfit/features/customer/view/customer_screen.dart';
-import 'package:shelfit/features/inventory_item/view/inventory_screen.dart';
-import 'package:shelfit/features/inventory_item/view/add_item_screen.dart';
+import 'package:shelfit/features/home/view/home_screen.dart';
+import 'package:shelfit/features/inventory_item/view/search_screen.dart';
+import 'package:shelfit/features/report/view/report_screen.dart';
+import 'package:shelfit/features/sales/view/sales_screen.dart';
 
 class CustomNavBar extends StatefulWidget {
   const CustomNavBar({super.key,});
@@ -19,11 +20,12 @@ class _CustomNavBarState extends State<CustomNavBar> {
   int _currentIndex = 0;
 
   final List<Widget> screens = [
-     InventoryScreen(),
-     InventoryScreen(),
-     CustomerScreen(),
-     InventoryScreen(),
+     HomeScreen(),
+     SearchScreen(),
+     SalesHistoryScreen(),
+     ReportScreen(),
    
+    
     
   ];
 
@@ -61,21 +63,22 @@ class _CustomNavBarState extends State<CustomNavBar> {
                       });
                     },
                     tabs: const [
-                      GButton(
-                        icon: Icons.inventory_2_outlined,iconSize: 32,
-                        text: 'Inventory',
-                      ),
-                      GButton(
+                       GButton(
                         icon: Icons.home_outlined,iconSize: 32,
                         text: 'Home',
                       ),
                       GButton(
-                        icon: Icons.person_outline_outlined,iconSize: 32,
-                        text: 'Customer',
+                        icon: Icons.search,iconSize: 32,
+                        text: 'Search',
+                      ),
+                     
+                      GButton(
+                        icon: Icons.bar_chart,iconSize:  32,
+                        text: 'Sales',
                       ),
                       GButton(
-                        icon: Icons.home_outlined,iconSize: 32,
-                        text: 'Home',
+                        icon: Icons.report, iconSize: 32,
+                        text: 'Report',
                       ),
                     ],
                   ),
@@ -84,24 +87,6 @@ class _CustomNavBarState extends State<CustomNavBar> {
             ),
           ),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        margin: const EdgeInsets.only(top: 0),
-        height: 64,
-        width: 64,
-        child: FloatingActionButton(
-          backgroundColor: AppColor.primaryColor,
-          elevation: 0,
-          onPressed: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>AddItemScreen()));
-          },
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(width: 3, color: AppColor.bottomtertiary),
-            borderRadius: BorderRadius.circular(100)
-          ),
-          child: Icon(Icons.add, color: AppColor.secondryColor, size: 30,),
-          ),
       ),
     );
   }

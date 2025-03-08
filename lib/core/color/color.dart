@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 class AppColor{
   static const Color primaryColor = Color(0xFF09353B);
   static const Color secondryColor = Color(0xFFD2F0EF);
-  static const Color tertiaryColor = Color(0xFFD2F0EF);
+  static const Color tertiaryColor = Colors.white;
   
 
 
   //!textField
   static const Color textfieldbgclr = Color(0xFFD2F0EF);
-  static const Color textfieldborder = Color(0xFFD2F0EF);
+  static const Color textfieldborder = Colors.grey;
   static const Color textfieldborderfocus = Colors.black;
 
 //!text
@@ -39,6 +39,16 @@ class AppColor{
 
 //!delete
   static const Color delete = Colors.red;
+
+
+//!shadow
+  static  Color shadowclr = Colors.grey.shade400;
+
+  //!icon
+  static  Color iconprimary = Colors.black;
+
+
+
 
 
 
