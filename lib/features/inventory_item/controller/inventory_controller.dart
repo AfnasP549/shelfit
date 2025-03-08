@@ -11,6 +11,7 @@ class InventoryController extends GetxController {
   final RxList<InventoryModel> items = <InventoryModel>[].obs;
   final RxBool isLoading = false.obs;
   final RxBool isAdding = false.obs;
+  final filteredItems = <InventoryModel>[].obs;
   final RxString error = ''.obs;
 
 
@@ -156,6 +157,17 @@ class InventoryController extends GetxController {
     } catch (e) {
       error.value = 'Failed to decrease quantity: $e';
       return false;
+    }
+  }
+
+  //!search
+  void searchItems(String query) {
+    if (query.isEmpty) {
+      filteredItems.assignAll(items);
+    } else {
+      var results = items.where((item) =>
+          item.name.toLowerCase().contains(query.toLowerCase())).toList();
+      filteredItems.assignAll(results);
     }
   }
 }

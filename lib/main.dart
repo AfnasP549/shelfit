@@ -5,6 +5,8 @@ import 'package:get/instance_manager.dart';
 import 'package:shelfit/core/color/color.dart';
 import 'package:shelfit/features/customer/controller/customer_controller.dart';
 import 'package:shelfit/features/inventory_item/controller/inventory_controller.dart';
+import 'package:shelfit/features/report/sales_report/view/sales_report_screen.dart';
+import 'package:shelfit/features/sales/controller/sales_controller.dart';
 import 'package:shelfit/features/splash/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -15,6 +17,8 @@ await Firebase.initializeApp(
 );
 Get.put(InventoryController());
 Get.put(CustomerController());
+Get.put(SalesController());
+//Get.put(SalesReportScreen());
   runApp(const MyApp());
 }
 

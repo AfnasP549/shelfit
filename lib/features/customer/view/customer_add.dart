@@ -62,7 +62,7 @@ class AddCustomerScreen extends StatelessWidget {
                     mobileNumber: mobileController.text,
                   );
                   controller.addCustomer(newCustomer);
-                  Get.back();
+               //   Get.back();
                 },
                 btnText: 'Add Customer'),
           ],

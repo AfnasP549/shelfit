@@ -10,6 +10,7 @@ class CustomButton extends StatelessWidget {
   final Color? btnTextColor;
   final double? fontSize;
   final Color? btnColor;
+  final IconData? btnIcon; // Optional icon
 
   const CustomButton({
     super.key,
@@ -18,27 +19,38 @@ class CustomButton extends StatelessWidget {
     this.btnheight,
     required this.btnText,
     this.btnTextColor,
-     this.fontSize = 16,
+    this.fontSize = 16,
     this.btnColor = AppColor.secondryColor,
+    this.btnIcon, // Initialize optional icon
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: onTap,
-        style: ElevatedButton.styleFrom(
-          minimumSize: Size(btnwidth ?? MediaQuery.of(context).size.width, btnheight ?? MediaQuery.of(context).size.height * 0.06),
-          backgroundColor: btnColor,
-          elevation: 1.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30)
-          )
+      onPressed: onTap,
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(btnwidth ?? MediaQuery.of(context).size.width, 
+                          btnheight ?? MediaQuery.of(context).size.height * 0.06),
+        backgroundColor: btnColor,
+        elevation: 1.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30),
         ),
-        child: Center(
-          child: Text(
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (btnIcon != null) ...[
+            Icon(btnIcon, color: btnTextColor),
+            const SizedBox(width: 8), // Space between icon and text
+          ],
+          Text(
             btnText,
             style: TextStyle(fontSize: fontSize, color: btnTextColor),
           ),
-        ));
+        ],
+      ),
+    );
   }
 }
