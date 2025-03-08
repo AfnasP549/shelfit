@@ -25,4 +25,40 @@ class FormValidator {
     }
     return null;
   }
+
+  static String? validateDescription(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a description';
+    }
+    if (value.length < 10) {
+      return 'Description must be at least 10 characters';
+    }
+    return null;
+  }
+
+  static String? validateQuantity(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a quantity';
+    }
+    if (int.tryParse(value) == null) {
+      return 'Please enter a valid number';
+    }
+    if (int.parse(value) <= 0) {
+      return 'Quantity must be greater than zero';
+    }
+    return null;
+  }
+
+  static String? validatePrice(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter a price';
+    }
+    if (double.tryParse(value) == null) {
+      return 'Please enter a valid price';
+    }
+    if (double.parse(value) <= 0) {
+      return 'Price must be greater than zero';
+    }
+    return null;
+  }
 }

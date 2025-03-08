@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shelfit/core/widget/custom_bottombar.dart';
 import 'package:shelfit/features/auth/view/signin_screen.dart';
-import 'package:shelfit/features/home/home_screen.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({super.key});
@@ -22,7 +22,7 @@ class Wrapper extends StatelessWidget {
              if(snapshot.data ==  null){
               return const SigninScreen();
             }else{
-              return HomeScreen();
+              return CustomNavBar();
             }
             // else{
             //   return  CustomNavBar();

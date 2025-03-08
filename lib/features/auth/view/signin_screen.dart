@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 
 import 'package:flutter/material.dart';
 import 'package:shelfit/core/color/color.dart';
 import 'package:shelfit/core/constant/form_validation.dart';
+import 'package:shelfit/core/widget/custom_bottombar.dart';
 import 'package:shelfit/core/widget/custom_button.dart';
 import 'package:shelfit/core/widget/custom_textfield.dart';
 import 'package:shelfit/features/auth/service/auth_service.dart';
@@ -40,7 +43,7 @@ class _LoginScreenState extends State<SigninScreen> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(24.0),
           child: Column(
             children: [
               //app logo
@@ -128,6 +131,7 @@ class _LoginScreenState extends State<SigninScreen> {
     );
     if (user != null) {
       log('User signed in');
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>CustomNavBar()));
     }
   } else {
     log('Form is not valid');

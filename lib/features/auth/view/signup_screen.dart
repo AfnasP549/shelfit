@@ -135,6 +135,7 @@ class _SignupScreenState extends State<SignupScreen> {
     );
     if (user != null) {
       log('User created successfully');
+      Navigator.pop(context);
     }
   } else {
     log('Form is not valid');

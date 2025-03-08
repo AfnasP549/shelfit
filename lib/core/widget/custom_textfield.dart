@@ -11,6 +11,8 @@ class CustomTextfield extends StatelessWidget {
   final TextCapitalization textCapitalization;
   final TextInputType inputType;
   final String? Function(String?)? validator;
+  final Color? inputTextColor;
+  final int? maxLines; // Add this line
 
   const CustomTextfield({
     super.key,
@@ -22,6 +24,8 @@ class CustomTextfield extends StatelessWidget {
     required this.inputType,
     this.suffixIcon,
     this.validator,
+    this.inputTextColor,
+    this.maxLines = 1, // Add this line
   });
 
   @override
@@ -33,14 +37,14 @@ class CustomTextfield extends StatelessWidget {
         textCapitalization: textCapitalization,
         obscureText: obscureText,
         maxLength: 32,
-        maxLines: 1,
+        maxLines: maxLines, // Use maxLines here
         keyboardType: inputType,
         textAlign: TextAlign.start,
         style: TextStyle(
-          color: AppColor.textprimaryColor,
+          color: inputTextColor ?? AppColor.textprimaryColor,
           fontSize: 16,
         ),
-        validator: validator, // Add Validator Here
+        validator: validator,
         decoration: InputDecoration(
           prefixIcon: Icon(prefixIcon, size: 24, color: AppColor.texttertiaryColor),
           suffixIcon: Icon(suffixIcon),
@@ -73,4 +77,3 @@ class CustomTextfield extends StatelessWidget {
     );
   }
 }
-
