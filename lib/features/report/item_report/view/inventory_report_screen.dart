@@ -6,7 +6,6 @@ import 'package:shelfit/core/color/color.dart';
 import 'package:shelfit/core/widget/custom_appbar.dart';
 import 'package:shelfit/features/inventory_item/model/inventory_model.dart';
 import 'package:shelfit/features/report/item_report/controller/inventory_report_controller.dart';
-import 'package:shelfit/features/report/item_report/widget/custom_elevation_button.dart';
 import 'package:shelfit/features/report/item_report/widget/filter_section_item_widget.dart';
 
 class InventoryReportScreen extends StatefulWidget {
@@ -32,6 +31,9 @@ class _InventoryReportScreenState extends State<InventoryReportScreen> {
     return Scaffold(
       appBar: CustomAppbar(
         title: 'Inventory Report',
+        actions: [
+            _buildActionButtonsSection(),
+        ],
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -41,7 +43,6 @@ class _InventoryReportScreenState extends State<InventoryReportScreen> {
         return Column(
           children: [
             FilterSectionItemWidget(controller: controller,),
-            _buildActionButtonsSection(),
             _buildItemsListSection(),
           ],
         );
@@ -175,86 +176,74 @@ class _InventoryReportScreenState extends State<InventoryReportScreen> {
   }
 
   // Action buttons section
-  Widget _buildActionButtonsSection() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+ Widget _buildActionButtonsSection() {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-               CustomElevatedButton(
-                icon: Icons.visibility,
-                color: AppColor.successColor,
-                label: 'View PDF',
-                onPressed: controller.viewPdf,
-              ),
-                CustomElevatedButton(
-                icon: Icons.share,
-                color: AppColor.successColor,
-                label: 'Share',
-                onPressed: controller.sharePdfReport,
-              ),
-              CustomElevatedButton(
-                icon: Icons.print,
-                color: AppColor.successColor,
-                label: 'Print',
-                onPressed: controller.printReport,
-              ),
-            
-              CustomElevatedButton(
-                icon: Icons.email,
-                color: AppColor.successColor,
-                label: 'Email',
-                onPressed: controller.shareViaEmail,
-              ),
-             
-            ],
-          ),
+          _buildShareMenu(context),
         ],
       ),
-    );
-  }
+    ],
+  );
+}
 
-  // Action button widget
-  Widget _buildActionButton({
-  required IconData icon,
-  required String label,
-  required VoidCallback onTap,
-  String? buttonName, // Optional button name
-}) {
-  return InkWell(
-    onTap: onTap,
-    borderRadius: BorderRadius.circular(8),
-    child: Container(
-      width: 70,
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: AppColor.primaryColor.withOpacity(0.1),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(
-              icon,
-              color: AppColor.primaryColor,
-              size: 24,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            buttonName ?? label, // Use buttonName if provided, else fallback to label
-            style: const TextStyle(fontSize: 12),
-            textAlign: TextAlign.center,
-          ),
-        ],
+Widget _buildShareMenu(BuildContext context) {
+  return PopupMenuButton<String>(
+    icon: const Icon(Icons.more_vert),
+    tooltip: 'Options',
+    onSelected: (value) async {
+      switch (value) {
+        case 'view':
+          await controller.viewPdf();
+          break;
+        case 'share':
+          await controller.sharePdfReport();
+          break;
+        case 'print':
+          await controller.printReport();
+          break;
+        case 'email':
+          await controller.shareViaEmail();
+          break;
+      }
+    },
+    itemBuilder: (context) => [
+      const PopupMenuItem(
+        value: 'view',
+        child: ListTile(
+          leading: Icon(Icons.visibility),
+          title: Text('View PDF'),
+          contentPadding: EdgeInsets.zero,
+        ),
       ),
-    ),
+      const PopupMenuItem(
+        value: 'share',
+        child: ListTile(
+          leading: Icon(Icons.share),
+          title: Text('Share'),
+          contentPadding: EdgeInsets.zero,
+        ),
+      ),
+      const PopupMenuItem(
+        value: 'print',
+        child: ListTile(
+          leading: Icon(Icons.print),
+          title: Text('Print'),
+          contentPadding: EdgeInsets.zero,
+        ),
+      ),
+      const PopupMenuItem(
+        value: 'email',
+        child: ListTile(
+          leading: Icon(Icons.email),
+          title: Text('Email'),
+          contentPadding: EdgeInsets.zero,
+        ),
+      ),
+    ],
   );
 }
 

@@ -29,10 +29,6 @@ class ReportScreen extends StatelessWidget {
             SalesReportScreen(),
             InventoryReportScreen(),
             CustomerLedgerReportScreen()
-          //  CustomerLedgerScreen(),
-            
-           
-            // ItemReportScreen(),
           ],
         ),
       ),

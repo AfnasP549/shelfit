@@ -4,72 +4,77 @@ import 'package:shelfit/features/report/sales_report/controller/sales_report_con
 
 class ActionButtonsWidget extends StatelessWidget {
   final SalesReportController controller;
-
+  
   const ActionButtonsWidget({super.key, required this.controller});
-
+  
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
       color: AppColor.primaryColor,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Expanded(
-            child: _buildElevatedButton(
-              icon: Icons.visibility,
-              label: 'View PDF',
-              color: AppColor.successColor,
-              onPressed: controller.viewPdf,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: _buildElevatedButton(
-              icon: Icons.share,
-              label: 'Share',
-              color: AppColor.successColor,
-              onPressed: controller.shareViaEmail,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: _buildElevatedButton(
-              icon: Icons.print,
-              label: 'Print',
-              color: AppColor.successColor,
-              onPressed: controller.printReport,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: _buildElevatedButton(
-              icon: Icons.table_chart,
-              label: 'Excel',
-              color: AppColor.successColor,
-              onPressed: controller.shareExcelReport,
-            ),
-          ),
+          _buildShareMenu(context),
         ],
       ),
     );
   }
 
-  // Private widget for reusable ElevatedButton
-  Widget _buildElevatedButton({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required VoidCallback onPressed,
-  }) {
-    return ElevatedButton.icon(
-      onPressed: onPressed,
-      icon: Icon(icon),
-      label: Text(label),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: color,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-      ),
+  Widget _buildShareMenu(BuildContext context) {
+    return PopupMenuButton<String>(
+      icon: const Icon(Icons.more_vert),
+      tooltip: 'Share Options',
+      onSelected: (value) async {
+        switch (value) {
+          case 'view':
+            await controller.viewPdf();
+            break;
+          case 'share':
+            await controller.shareViaEmail();
+            break;
+          case 'print':
+            await controller.printReport();
+            break;
+          case 'excel':
+            await controller.shareExcelReport();
+            break;
+        }
+      },
+      itemBuilder: (context) => [
+        const PopupMenuItem(
+          value: 'view',
+          child: ListTile(
+            leading: Icon(Icons.visibility),
+            title: Text('View PDF'),
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
+        const PopupMenuItem(
+          value: 'share',
+          child: ListTile(
+            leading: Icon(Icons.share),
+            title: Text('Share'),
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
+        const PopupMenuItem(
+          value: 'print',
+          child: ListTile(
+            leading: Icon(Icons.print),
+            title: Text('Print'),
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
+        const PopupMenuItem(
+          value: 'excel',
+          child: ListTile(
+            leading: Icon(Icons.table_chart),
+            title: Text('Excel'),
+            contentPadding: EdgeInsets.zero,
+          ),
+        ),
+      ],
     );
   }
 }
