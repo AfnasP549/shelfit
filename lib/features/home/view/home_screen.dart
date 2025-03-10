@@ -4,7 +4,7 @@ import 'package:shelfit/core/widget/custom_appbar.dart';
 import 'package:shelfit/features/customer/view/customer_screen.dart';
 import 'package:shelfit/features/home/widget/custom_card.dart';
 import 'package:shelfit/features/inventory_item/view/inventory_screen.dart';
-import 'package:shelfit/features/inventory_item/widget/signout_confirmation.dart';
+import 'package:shelfit/core/widget/signout_confirmation.dart';
 import 'package:shelfit/features/report/view/report_screen.dart';
 import 'package:shelfit/features/sales/view/sales_add_screen.dart';
 

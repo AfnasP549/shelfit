@@ -17,15 +17,16 @@ class SalesReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.loadSales;
     return Scaffold(
-      appBar: CustomAppbar(title: 'Sales Report'),
+      appBar: CustomAppbar(
+        title: 'Sales Report',
+        actions: [
+          ActionButtonsWidget(controller: controller),
+        ],
+        ),
       body: Column(
         children: [
           // Filter section
-          FilterSectionWidget(controller: controller),
-          
-          // Action buttons
-          ActionButtonsWidget(controller: controller),
-          
+          FilterSectionWidget(controller: controller), 
           // Sales data
           Expanded(
             child: Obx(() {
@@ -123,7 +124,7 @@ class SalesReportScreen extends StatelessWidget {
           DateTime saleDate = DateTime.parse(sale['saleDate']);
           formattedDate = DateFormat('MMM dd, yyyy').format(saleDate);
         } catch (e) {
-          print("Error formatting date: $e");
+          throw Exception("Error formatting date: $e");
         }
         
         return Card(

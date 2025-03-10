@@ -14,6 +14,9 @@ class InventoryController extends GetxController {
   final filteredItems = <InventoryModel>[].obs;
   final RxString error = ''.obs;
 
+  final RxList<InventoryModel> searchResults = <InventoryModel>[].obs;
+  final RxBool isSearching = false.obs;
+
 
   @override
   void onInit() {
@@ -161,13 +164,25 @@ class InventoryController extends GetxController {
   }
 
   //!search
-  void searchItems(String query) {
+    void searchItems(String query) {
+    isSearching.value = true;
+    
     if (query.isEmpty) {
-      filteredItems.assignAll(items);
+      searchResults.assignAll(items);
     } else {
-      var results = items.where((item) =>
-          item.name.toLowerCase().contains(query.toLowerCase())).toList();
-      filteredItems.assignAll(results);
+      final results = items.where((item) =>
+        item.name.toLowerCase().contains(query.toLowerCase()) ||
+        item.description.toLowerCase().contains(query.toLowerCase())
+      ).toList();
+      
+      searchResults.assignAll(results);
     }
+    
+    isSearching.value = false;
+  }
+  
+  // Reset search results
+  void resetSearch() {
+    searchResults.assignAll(items);
   }
 }

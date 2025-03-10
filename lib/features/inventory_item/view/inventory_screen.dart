@@ -11,6 +11,7 @@
   import 'package:shelfit/features/inventory_item/model/inventory_model.dart';
   import 'package:shelfit/features/inventory_item/view/add_item_screen.dart';
   import 'package:shelfit/features/inventory_item/view/inventory_edit_screen.dart';
+import 'package:shelfit/features/inventory_item/view/search_screen.dart';
   import 'package:shelfit/features/inventory_item/widget/delete_confirmation.dart';
   import 'package:shelfit/features/inventory_item/widget/item_detail.dart';
 
@@ -43,6 +44,14 @@
       return Scaffold(
         appBar: CustomAppbar(
           title: 'Inventory',
+          actions: [
+            IconButton(
+              onPressed: (){
+                Get.to(SearchScreen());
+
+            }, 
+            icon: Icon(Icons.search))
+          ],
         ),
         body: Obx(() {
           if (controller.isLoading.value) {
