@@ -113,13 +113,13 @@ class _InventoryReportScreenState extends State<InventoryReportScreen> {
               height: 40,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: AppColor.primaryColor,
-                borderRadius: BorderRadius.circular(8),
+                color: AppColor.circleBg,
+                borderRadius: BorderRadius.circular(100),
               ),
               child: Text(
                 '${index + 1}',
-                style: const TextStyle(
-                  color: Colors.white,
+                style:  TextStyle(
+                  color: AppColor.textQuaternaryColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),

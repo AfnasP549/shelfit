@@ -3,10 +3,12 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shelfit/core/color/color.dart';
+import 'package:shelfit/core/widget/custom_appbar.dart';
 import 'package:shelfit/features/report/customer_report/controller/customer_ledger_controller.dart';
 
 class CustomerLedgerReportScreen extends StatelessWidget {
-  final CustomerReportController controller = Get.put(CustomerReportController());
+  final CustomerReportController controller =
+      Get.put(CustomerReportController());
   final currencyFormat = NumberFormat.currency(locale: 'en_US', symbol: '₹');
   final dateFormat = DateFormat('MMM dd, yyyy');
 
@@ -16,15 +18,15 @@ class CustomerLedgerReportScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.refreshData();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Customer Ledger Report'),
+      appBar: CustomAppbar(
+        title: 'Customer Ledger Report',
         actions: [
           _buildShareMenu(context),
         ],
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return  Center(child: Lottie.asset('asset/loading.json'));
+          return Center(child: Lottie.asset('asset/loading.json'));
         }
 
         if (controller.errorMessage.value.isNotEmpty) {
@@ -50,7 +52,6 @@ class CustomerLedgerReportScreen extends StatelessWidget {
         return Column(
           children: [
             _buildFilterSection(context),
-  
             Expanded(child: _buildSalesDataList()),
           ],
         );
@@ -127,27 +128,32 @@ class CustomerLedgerReportScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Obx(() => DropdownButtonFormField<String>(
-                    decoration: const InputDecoration(
-                      labelText: 'Customer',
-                      border: OutlineInputBorder(),
-                      contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                    ),
-                    value: controller.selectedCustomer.value,
-                    items: controller.getAllCustomerNames().map((name) {
-                      return DropdownMenuItem(
-                        value: name,
-                        child: Text(
-                          name,
-                          overflow: TextOverflow.ellipsis,
+                  child: Obx(() => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DropdownButtonFormField<String>(
+                      borderRadius: BorderRadius.circular(40),
+                          decoration:  InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'Customer',
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          ),
+                          value: controller.selectedCustomer.value,
+                          items: controller.getAllCustomerNames().map((name) {
+                            return DropdownMenuItem(
+                              value: name,
+                              child: Text(
+                                name,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            if (value != null) {
+                              controller.setSelectedCustomer(value);
+                            }
+                          },
                         ),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      if (value != null) {
-                        controller.setSelectedCustomer(value);
-                      }
-                    },
                   )),
                 ),
               ],
@@ -226,10 +232,9 @@ class CustomerLedgerReportScreen extends StatelessWidget {
               trailing: Text(
                 currencyFormat.format(sale['totalPrice']),
                 style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: AppColor.successColor
-                ),
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: AppColor.successColor),
               ),
             ),
           );

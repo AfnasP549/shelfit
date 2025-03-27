@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:get/get.dart';
 import 'package:shelfit/core/color/color.dart';
 import 'package:shelfit/features/report/item_report/controller/inventory_report_controller.dart';
 
@@ -16,7 +15,7 @@ class FilterSectionItemWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: AppColor.secondryColor,
+          color: AppColor.primaryColor,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +23,7 @@ class FilterSectionItemWidget extends StatelessWidget {
             const Text(
               'Filter by Date',
               style: TextStyle(
-                color: AppColor.textsecondryColor,
+                color: AppColor.textprimaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
@@ -58,7 +57,7 @@ class FilterSectionItemWidget extends StatelessWidget {
                   icon: const Icon(Icons.refresh),
                   label: const Text('Reset Filters'),
                   style: TextButton.styleFrom(
-                    foregroundColor: AppColor.primaryColor,
+                    foregroundColor: AppColor.textprimaryColor,
                   ),
                 ),
               ],
@@ -96,7 +95,7 @@ class DatePickerField extends StatelessWidget {
             return Theme(
               data: Theme.of(context).copyWith(
                 colorScheme: ColorScheme.light(
-                  primary: AppColor.primaryColor,
+                  primary: AppColor.tertiaryColor,
                 ),
               ),
               child: child!,
@@ -112,7 +111,7 @@ class DatePickerField extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.shade300),
           borderRadius: BorderRadius.circular(8),
-          color: AppColor.secondryColor,
+          color: AppColor.primaryColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

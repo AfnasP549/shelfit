@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shelfit/core/color/color.dart';
 import 'package:shelfit/core/constant/form_validation.dart';
 import 'package:shelfit/core/widget/custom_appbar.dart';
 import 'package:shelfit/core/widget/custom_button.dart';
@@ -74,6 +75,7 @@ class EditCustomerScreen extends StatelessWidget {
                     controller.editCustomer(updatedCustomer);
                   }
                 },
+                btnColor: AppColor.buttonPrimary,
                 btnText: 'Save Changes',
               ),
             ],

@@ -22,22 +22,22 @@ class SalesReportScreen extends StatelessWidget {
         actions: [
           ActionButtonsWidget(controller: controller),
         ],
-        ),
-      body: Column(
-        children: [
-          // Filter section
-          FilterSectionWidget(controller: controller), 
-          // Sales data
-          Expanded(
-            child: Obx(() {
-              if (controller.isLoading.value) {
-                return Center(
-                  child: Lottie.asset('asset/loading.json'),
-                );
-              }
-              
-              if (controller.filteredSales.isEmpty) {
-                return Center(
+      ),
+      body: Obx(() {
+        if (controller.isLoading.value) {
+          return Center(
+            child: Lottie.asset('asset/loading.json'),
+          );
+        }
+        
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              // Filter section
+              FilterSectionWidget(controller: controller),              
+              // No sales found message
+              if (controller.filteredSales.isEmpty)
+                Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -50,71 +50,70 @@ class SalesReportScreen extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
+                      const SizedBox(height: 100), // Add some space at the bottom for better scroll experience
                     ],
                   ),
-                );
-              }
-              
-              // Calculate stats
-              final stats = controller.getReportStatistics();
-              
-              return Container(
-                color: AppColor.primaryColor,
-                child: Column(
-                  children: [
-                    // Stats summary
-                    _buildStatsSummary(stats),
-                    
-                    // Sales list
-                    Expanded(
-                      child: _buildSalesList(),
-                    ),
-                  ],
                 ),
-              );
-            }),
+              
+              // Sales data section - only show if we have data
+              if (controller.filteredSales.isNotEmpty)
+                Container(
+                  color: AppColor.primaryColor,
+                  child: Column(
+                    children: [
+                      // Stats summary
+                    //  _buildStatsSummary(controller.getReportStatistics()),
+                      
+                      // Sales list
+                      _buildSalesList(),
+                    ],
+                  ),
+                ),
+            ],
           ),
-        ],
-      ),
+        );
+      }),
     );
   }
   
   // Stats summary widget
-  Widget _buildStatsSummary(Map<String, dynamic> stats) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        color: AppColor.secondryColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            _buildStatItem(
-              'Total Sales',
-              '${stats['totalSales']}',
-              Icons.shopping_cart,
-            ),
-            _buildStatItem(
-              'Revenue',
-              '₹${stats['totalRevenue'].toStringAsFixed(2)}',
-              Icons.attach_money,
-            ),
-            _buildStatItem(
-              'Items Sold',
-              '${stats['totalQuantity']}',
-              Icons.inventory,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _buildStatsSummary(Map<String, dynamic> stats) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Container(
+  //       padding: const EdgeInsets.all(16),
+  //       color: AppColor.tertiaryColor,
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //         children: [
+  //           _buildStatItem(
+  //             'Total Sales',
+  //             '${stats['totalSales']}',
+  //             Icons.shopping_cart,
+  //           ),
+  //           _buildStatItem(
+  //             'Revenue',
+  //             '₹${stats['totalRevenue'].toStringAsFixed(2)}',
+  //             Icons.attach_money,
+  //           ),
+  //           _buildStatItem(
+  //             'Items Sold',
+  //             '${stats['totalQuantity']}',
+  //             Icons.inventory,
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
   
   // Sales list widget
   Widget _buildSalesList() {
     return ListView.builder(
       padding: const EdgeInsets.all(12),
       itemCount: controller.filteredSales.length,
+      shrinkWrap: true, 
+      physics: const NeverScrollableScrollPhysics(), 
       itemBuilder: (context, index) {
         var sale = controller.filteredSales[index];
         
@@ -128,7 +127,7 @@ class SalesReportScreen extends StatelessWidget {
         }
         
         return Card(
-          color: AppColor.secondryColor,
+          color: AppColor.primaryColor,
           margin: const EdgeInsets.only(bottom: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -139,7 +138,7 @@ class SalesReportScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
-                  color: AppColor.secondryColor,
+                //  color: AppColor.secondryColor,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12),
@@ -152,7 +151,7 @@ class SalesReportScreen extends StatelessWidget {
                       formattedDate,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
-                        color: AppColor.textsecondryColor,
+                        color: AppColor.textprimaryColor,
                       ),
                     ),
                     Container(
@@ -181,12 +180,12 @@ class SalesReportScreen extends StatelessWidget {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundColor: AppColor.primaryColor,
+                          backgroundColor: AppColor.circleBg,
                           child: Text(
                             (sale['productName'] ?? 'U')[0].toUpperCase(),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: AppColor.secondryColor,
+                              color: AppColor.textQuaternaryColor,
                             ),
                           ),
                         ),
@@ -198,15 +197,16 @@ class SalesReportScreen extends StatelessWidget {
                               Text(
                                 sale['productName'] ?? 'Unknown Product',
                                 style: const TextStyle(
-                                  color: AppColor.textsecondryColor,
-                                  fontSize: 20,
+                                  color: AppColor.textprimaryColor,
+                                  fontSize: 22,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                               Text(
-                                "Sold to: ${sale['customerName'] ?? 'Unknown'}",
+                                "Customer : ${sale['customerName'] ?? 'Unknown'}",
                                 style: TextStyle(
-                                  color: AppColor.textfieldborderfocus,
+                                  color: AppColor.textprimaryColor,
+                                  fontSize: 16,
                                 ),
                               ),
                             ],
@@ -234,8 +234,8 @@ class SalesReportScreen extends StatelessWidget {
                             Text(
                               "${sale['quantity'] ?? 0}",
                               style: const TextStyle(
-                                color: AppColor.textsecondryColor,
-                                fontSize: 16,
+                                color: AppColor.textprimaryColor,
+                                fontSize: 18,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -255,9 +255,9 @@ class SalesReportScreen extends StatelessWidget {
                             Text(
                               "₹${(sale['totalPrice'] ?? 0.0).toStringAsFixed(2)}",
                               style: const TextStyle(
-                                fontSize: 18,
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
-                                color: AppColor.successColor,
+                                color: AppColor.textprimaryColor,
                               ),
                             ),
                           ],
@@ -274,34 +274,33 @@ class SalesReportScreen extends StatelessWidget {
     );
   }
   
-  // Helper method to build stat items
-  Widget _buildStatItem(String label, String value, IconData icon) {
-    return Column(
-      children: [
-        Icon(
-          icon,
-          color: AppColor.textfieldborderfocus,
-          size: 28,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          value,
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: AppColor.textsecondryColor,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            color: Colors.grey.shade600,
-          ),
-        ),
-      ],
-    );
-  }
-
+  // // Helper method to build stat items
+  // Widget _buildStatItem(String label, String value, IconData icon) {
+  //   return Column(
+  //     children: [
+  //       Icon(
+  //         icon,
+  //         color: AppColor.textfieldborderfocus,
+  //         size: 28,
+  //       ),
+  //       const SizedBox(height: 8),
+  //       Text(
+  //         value,
+  //         style: const TextStyle(
+  //           fontSize: 18,
+  //           fontWeight: FontWeight.bold,
+  //           color: AppColor.textsecondryColor,
+  //         ),
+  //       ),
+  //       const SizedBox(height: 4),
+  //       Text(
+  //         label,
+  //         style: TextStyle(
+  //           fontSize: 12,
+  //           color: Colors.grey.shade600,
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 }

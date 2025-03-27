@@ -16,8 +16,9 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+     // width: double.infinity,
       decoration: BoxDecoration(
-        color: AppColor.primaryColor,
+        color: AppColor.secondryColor,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(35),
           bottomRight: Radius.circular(35),
@@ -27,13 +28,14 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
       ),
       padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       child: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
-        title: Text(title),
+        title: Text(title,style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),),
         leading: leading,
         actions: actions,
       ),
     );
   }
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight + 50);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + 40);
 }

@@ -28,7 +28,7 @@ class CustomDashboardCard extends StatelessWidget {
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: AppColor.secondryColor,
+            color: AppColor.tertiaryLightColor,
             borderRadius: BorderRadius.circular(15),
           ),
           child: Column(
@@ -39,28 +39,20 @@ class CustomDashboardCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(196, 255, 255, 255),
                   shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade400,
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
-                    ),
-                  ],
-                ),
+                 ),
                 child: Icon(
                   icon,
                   size: 30,
-                  color: AppColor.iconprimary,
+                  color: AppColor.iconSecondary,
                 ),
               ),
               const SizedBox(height: 12),
               Text(
                 label,
                 style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.textsecondryColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: AppColor.textprimaryColor,
                 ),
               ),
             ],

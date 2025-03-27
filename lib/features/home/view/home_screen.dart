@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shelfit/core/color/color.dart';
 import 'package:shelfit/core/constant/custom_navigator.dart';
 import 'package:shelfit/core/widget/custom_appbar.dart';
 import 'package:shelfit/features/customer/view/customer_screen.dart';
@@ -17,9 +18,15 @@ class HomeScreen extends StatelessWidget {
       appBar: CustomAppbar(
         title: 'Home',
         actions: [
-          IconButton(
-              onPressed: () => SignOutConfirmation.showSignOutDialog(context),
-              icon: Icon(Icons.logout_outlined))
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(100),
+              color: AppColor.tertiaryColor
+            ),
+            child: IconButton(
+                onPressed: () => SignOutConfirmation.showSignOutDialog(context),
+                icon: Icon(Icons.logout_outlined, color: AppColor.iconPrimay,)),
+          )
         ],
       ),
        body: Padding(

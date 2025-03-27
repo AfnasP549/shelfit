@@ -60,7 +60,7 @@ class SalesHistoryScreen extends StatelessWidget {
               }
 
               return Card(
-                color: AppColor.secondryColor,
+                color: AppColor.tertiaryColor,
                 margin: const EdgeInsets.only(bottom: 12),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -71,7 +71,7 @@ class SalesHistoryScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       decoration: BoxDecoration(
-                        color: AppColor.secondryColor,
+                        color: AppColor.tertiaryColor,
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(12),
                           topRight: Radius.circular(12),
@@ -134,15 +134,17 @@ class SalesHistoryScreen extends StatelessWidget {
                                       sale['productName'] ?? 'Unknown Product',
                                       style: const TextStyle(
                                         color: AppColor.textsecondryColor,
-                                        fontSize: 20,
+                                        fontSize: 25,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     //customer name
                                     Text(
-                                      "Sold to: ${sale['customerName'] ?? 'Unknown'}",
+                                      "Customer : ${sale['customerName'] ?? 'Unknown'}",
                                       style: TextStyle(
-                                        color: AppColor.textfieldborderfocus,
+                                        color: AppColor.textsecondryColor,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.bold
                                       ),
                                     ),
                                   ],
@@ -163,7 +165,7 @@ class SalesHistoryScreen extends StatelessWidget {
                                     "Quantity",
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: Colors.grey.shade600,
+                                      color: AppColor.textsecondryColor,
                                     ),
                                   ),
                                   const SizedBox(height: 4),
@@ -185,7 +187,7 @@ class SalesHistoryScreen extends StatelessWidget {
                                     "Total Amount",
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: Colors.grey.shade600,
+                                      color: AppColor.textsecondryColor,
                                     ),
                                   ),
                                   const SizedBox(height: 4),
@@ -193,9 +195,9 @@ class SalesHistoryScreen extends StatelessWidget {
                                   Text(
                                     "₹${(sale['totalPrice'] ?? 0.0).toStringAsFixed(2)}",
                                     style: const TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 22,
                                       fontWeight: FontWeight.bold,
-                                      color: AppColor.successColor,
+                                      color: AppColor.textsecondryColor,
                                     ),
                                   ),
                                 ],

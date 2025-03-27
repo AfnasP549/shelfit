@@ -15,12 +15,45 @@ class ReportScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Reports'),
-          bottom: const TabBar(
+          bottom:  TabBar(
             labelColor: AppColor.bottomsecondry,
             tabs: [
-              Tab(text: 'Sales Report'),
-              Tab(text: 'Item Report'),
-              Tab(text: 'Customer Ledger'),
+              Container(
+                height: 30,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(100),
+                  color: AppColor.tertiaryColor
+                ),
+                padding: EdgeInsets.all(4),
+                child: Tab(text: 'Sales Report')),
+
+
+              Container(
+                height: 30,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(100),
+                  color: AppColor.tertiaryColor
+                ),
+                padding: EdgeInsets.all(4),
+                child:  Tab(text: 'Item Report'),),
+
+
+              Container(
+                height: 30,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(100),
+                  color: AppColor.tertiaryColor
+                ),
+                padding: EdgeInsets.all(4),
+                child:   Tab(text: 'Customer Ledger')),
+             
+             
             ],
           ),
         ),

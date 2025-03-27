@@ -1,6 +1,6 @@
-import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:shelfit/core/color/color.dart';
 import '../repository/sales_repository.dart';
 
 class SalesController extends GetxController {
@@ -38,7 +38,6 @@ class SalesController extends GetxController {
       await loadSales();
       isInitialized.value = true;
     } catch (e) {
-      print("Error initializing data: $e");
       Get.snackbar("Error", "Failed to initialize data");
     } finally {
       isLoading.value = false;
@@ -48,19 +47,14 @@ class SalesController extends GetxController {
   // Fetch Customers
   Future<void> loadCustomers() async {
     try {
-      print("Fetching customers...");
       final result = await salesRepository.fetchCustomers();
-      print("Fetched ${result.length} customers");
-      
       // Add debug output to check the data being returned
       if (result.isNotEmpty) {
-        print("First customer: ${result.first}");
       }
       
       customers.assignAll(result);
       update();
     } catch (e) {
-      print("Error loading customers: $e");
       throw Exception("Error loading customers: $e");
     }
   }
@@ -68,13 +62,10 @@ class SalesController extends GetxController {
   // Fetch Products
   Future<void> loadProducts() async {
     try {
-      print("Fetching products...");
       final result = await salesRepository.fetchProducts();
-      print("Fetched ${result.length} products");
       products.assignAll(result);
       update();
     } catch (e) {
-      print("Error loading products: $e");
       throw Exception("Error loading products: $e");
     }
   }
@@ -85,7 +76,6 @@ class SalesController extends GetxController {
     try {
       // Check if user is logged in first
       if (salesRepository.uid == null) {
-        print("User not logged in yet");
         await Future.delayed(Duration(seconds: 1)); // Wait briefly
         if (salesRepository.uid == null) {
           Get.snackbar("Error", "Please log in to view sales");
@@ -94,9 +84,7 @@ class SalesController extends GetxController {
         }
       }
       
-      print("Fetching sales...");
       var result = await salesRepository.fetchSales();
-      print("Fetched ${result.length} sales records");
       sales.assignAll(result);
       
       // Update filtered sales too
@@ -108,7 +96,6 @@ class SalesController extends GetxController {
       
       update();
     } catch (e) {
-      print("Error loading sales: $e");
       Get.snackbar("Error", "Failed to fetch sales");
     } finally {
       isLoading.value = false;
@@ -167,7 +154,12 @@ class SalesController extends GetxController {
       await loadProducts(); // Refresh product list after sale
       await loadSales(); // Refresh sales list
 
-      Get.snackbar("Success", "Sale recorded successfully!");
+      Get.snackbar(
+        backgroundColor: AppColor.snackBarPrimary,
+        animationDuration: Duration(seconds: 2),
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: AppColor.textsecondryColor,
+        "✅ Success", "Sale recorded successfully!");
     } catch (e) {
       Get.snackbar("Error", "Failed to record sale: ${e.toString()}");
     }
@@ -181,9 +173,6 @@ class SalesController extends GetxController {
   final customerExists = customers.any((c) => c['uid']?.toString() == customerId);
   
   if (!customerExists) {
-    print("Warning: Customer ID $customerId not found in customer list");
-    // You could show a snackbar here to notify the user
-    // Get.snackbar("Error", "Selected customer not found");
     clearLedgerFilter();
     return;
   }
@@ -205,33 +194,19 @@ class SalesController extends GetxController {
     filteredSales.assignAll(sales);
     update();
   }
-  
-  // Calculate total amount spent by a customer
- // The issue is in this method - you're using 'customerId' field for filtering
-// but comparing it incorrectly with the actual field in your sales data
 
 double getCustomerTotal(String customerId) {
-  // Debug print to help identify what's happening
-  print('Calculating total for customer ID: $customerId');
-  
   // Filter sales where the customerId field matches the given ID
   final customerSales = sales.where((sale) {
     bool matches = sale['customerId'] == customerId;
-    // Debug prints
     if (matches) {
-      print('Found matching sale: ${sale['totalPrice']}');
     }
     return matches;
   }).toList();
   
-  print('Found ${customerSales.length} sales for this customer');
-  
   // Calculate total
   double total = 0.0;
   for (var sale in customerSales) {
-    // Print each value to debug
-    print('Adding sale amount: ${sale['totalPrice']}');
-    
     // Use proper null-safety and type conversion
     if (sale['totalPrice'] != null) {
       // Handle different possible types
@@ -245,7 +220,6 @@ double getCustomerTotal(String customerId) {
     }
   }
   
-  print('Final total: $total');
   return total;
 } 
   

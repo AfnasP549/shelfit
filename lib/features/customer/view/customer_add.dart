@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shelfit/core/color/color.dart';
 import 'package:shelfit/core/constant/form_validation.dart';
 import 'package:shelfit/core/widget/custom_appbar.dart';
 import 'package:shelfit/core/widget/custom_button.dart';
@@ -12,6 +13,8 @@ class AddCustomerScreen extends StatelessWidget {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
+
+  AddCustomerScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +67,7 @@ class AddCustomerScreen extends StatelessWidget {
                   controller.addCustomer(newCustomer);
                //   Get.back();
                 },
+                btnColor: AppColor.buttonPrimary,
                 btnText: 'Add Customer'),
           ],
         ),

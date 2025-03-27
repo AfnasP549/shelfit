@@ -26,15 +26,14 @@ class CustomerTile extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(4.0),
         child: ListTile(
-          tileColor: AppColor.secondryColor,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           leading: CircleAvatar(
-            backgroundColor: Colors.blue.shade100,
+            backgroundColor: AppColor.circleBg,
             radius: 25,
             child: Text(
               customer.name.isNotEmpty ? customer.name[0].toUpperCase() : '?',
               style: TextStyle(
-                color: Colors.blue.shade800,
+                color: AppColor.textQuaternaryColor,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -46,7 +45,7 @@ class CustomerTile extends StatelessWidget {
               customer.name,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 16,
+                fontSize: 18,
               ),
             ),
           ),
@@ -55,12 +54,12 @@ class CustomerTile extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                  const Icon(Icons.location_on, size: 18, color: AppColor.iconTertiary,),
                   const SizedBox(width: 6),
                   Expanded(
                     child: Text(
                       customer.address,
-                      style: const TextStyle(fontSize: 14),
+                      style: const TextStyle(fontSize: 16),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -70,11 +69,11 @@ class CustomerTile extends StatelessWidget {
               const SizedBox(height: 6),
               Row(
                 children: [
-                  const Icon(Icons.phone, size: 16, color: Colors.grey),
+                  const Icon(Icons.phone, size: 18, color: AppColor.iconTertiary),
                   const SizedBox(width: 6),
                   Text(
                     customer.mobileNumber,
-                    style: const TextStyle(fontSize: 14),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ],
               ),
@@ -108,7 +107,7 @@ class CustomerTile extends StatelessWidget {
                   children: [
                     Text(
                       'Edit Customer',
-                      style: TextStyle(color: AppColor.bottomprimary),
+                    //  style: TextStyle(color: AppColor.bottomprimary),
                     ),
                   ],
                 ),

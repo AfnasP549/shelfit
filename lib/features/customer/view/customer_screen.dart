@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shelfit/core/color/color.dart';
 import 'package:shelfit/core/widget/custom_appbar.dart';
 import 'package:shelfit/features/customer/view/customer_add.dart';
 import 'package:shelfit/features/customer/widget/customer_tile.dart';
@@ -17,13 +18,7 @@ class CustomerScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: CustomAppbar(
-        title: 'Customers',
-        actions: [
-          IconButton(
-            onPressed: () => Get.to(AddCustomerScreen()),
-            icon: const Icon(Icons.person_add_alt_1),
-          ),
-        ],
+        title: 'CUSTOMERS',
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
@@ -41,7 +36,7 @@ class CustomerScreen extends StatelessWidget {
                   'Loading customers...',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.grey,
+                    color: AppColor.texttertiaryColor,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -88,6 +83,15 @@ class CustomerScreen extends StatelessWidget {
           ),
         );
       }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(AddCustomerScreen());
+        },
+        child: Icon(
+          Icons.add,
+          color: AppColor.iconPrimay,
+        ),
+      ),
     );
   }
 }

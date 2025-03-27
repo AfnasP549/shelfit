@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shelfit/core/color/color.dart';
+import 'package:shelfit/core/widget/custom_appbar.dart';
 import 'package:shelfit/features/inventory_item/controller/inventory_controller.dart';
 import 'package:shelfit/features/inventory_item/model/inventory_model.dart';
 import 'package:shelfit/features/inventory_item/widget/item_detail.dart';
@@ -61,10 +62,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Search Inventory'),
-        backgroundColor: AppColor.primaryColor,
-        foregroundColor: AppColor.textsecondryColor,
+      appBar: CustomAppbar(
+        title: 'Search Inventory',
       ),
       body: Column(
         children: [
@@ -74,10 +73,13 @@ class _SearchScreenState extends State<SearchScreen> {
             child: TextField(
               controller: searchController,
               style: TextStyle(
-                color: AppColor.textsecondryColor
+                color: AppColor.textprimaryColor
               ),
               decoration: InputDecoration(
                 hintText: 'Search by name or description',
+                hintStyle: TextStyle(
+                  color: AppColor.texttertiaryColor
+                ),
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.clear),
@@ -93,22 +95,6 @@ class _SearchScreenState extends State<SearchScreen> {
                 fillColor: Colors.white,
               ),
             ),
-          ),
-          
-          // Results count
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Obx(() => Row(
-              children: [
-                Text(
-                  'Found ${searchResults.length} items',
-                  style: TextStyle(
-                    color: AppColor.textsecondryColor,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            )),
           ),
           
           // Results List
@@ -155,14 +141,14 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Widget _buildInventoryItem(BuildContext context, InventoryModel item) {
     return Card(
-      color: AppColor.bottomtertiary,
+    //  color: AppColor.bottomtertiary,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       elevation: 3,
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         title: Text(
           item.name,
-          style: const TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -171,7 +157,7 @@ class _SearchScreenState extends State<SearchScreen> {
               Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: Text(
-                  item.description,
+                  item.description,style: TextStyle(fontSize: 15),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -182,7 +168,7 @@ class _SearchScreenState extends State<SearchScreen> {
               children: [
                 Chip(
                   label: Text(
-                    'Qty: ${item.quantity}',
+                    'STOCK: ${item.quantity}',
                     style: TextStyle(
                       color: AppColor.textsecondryColor,
                     ),
@@ -194,8 +180,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   currencyFormat.format(item.price),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: AppColor.successColor,
-                    fontSize: 16,
+                    fontSize: 25,
                   ),
                 ),
               ],

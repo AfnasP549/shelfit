@@ -10,7 +10,7 @@ import 'package:shelfit/features/inventory_item/controller/inventory_controller.
 
 class EditItemScreen extends StatefulWidget {
   final String itemId;
-  
+
   const EditItemScreen({super.key, required this.itemId});
 
   @override
@@ -25,7 +25,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
   final TextEditingController _priceController = TextEditingController();
 
   final InventoryController _controller = Get.find<InventoryController>();
-  
+
   bool isLoading = true;
   String? error;
 
@@ -79,7 +79,8 @@ class _EditItemScreenState extends State<EditItemScreen> {
         child: isLoading
             ? Center(child: Lottie.asset('asset/loading.json'))
             : error != null
-                ? Center(child: Text(error!, style: TextStyle(color: Colors.red)))
+                ? Center(
+                    child: Text(error!, style: TextStyle(color: Colors.red)))
                 : Form(
                     key: _formKey,
                     child: SingleChildScrollView(
@@ -127,8 +128,13 @@ class _EditItemScreenState extends State<EditItemScreen> {
 
                           //!button
                           Obx(() => _controller.isLoading.value
-                              ? Center(child: Lottie.asset('asset/loading.json'))
-                              : CustomButton(onTap: _submitForm, btnText: 'Update Item')),
+                              ? Center(
+                                  child: Lottie.asset('asset/loading.json'))
+                              : CustomButton(
+                                  onTap: _submitForm,
+                                  btnText: 'Update Item',
+                                  btnColor: AppColor.bottomIconPrimary,
+                                )),
                           const SizedBox(height: 8),
                         ],
                       ),
@@ -156,11 +162,11 @@ class _EditItemScreenState extends State<EditItemScreen> {
       if (success) {
         Get.back(result: true);
         Get.snackbar(
-          'Success',
+          '✅ Success',
           'Item updated successfully',
           snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.green,
-          colorText: AppColor.textprimaryColor,
+           backgroundColor: AppColor.snackBarPrimary,
+           colorText: AppColor.textsecondryColor,
           duration: const Duration(seconds: 2),
         );
       }

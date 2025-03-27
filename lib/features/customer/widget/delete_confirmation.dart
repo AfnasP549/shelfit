@@ -18,7 +18,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: AppColor.secondryColor,
+    //  backgroundColor: AppColor.secondryColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
@@ -26,7 +26,7 @@ class DeleteConfirmationDialog extends StatelessWidget {
       content: Text(
         "Are you sure you want to delete $customerName?",
         style: TextStyle(
-          color: AppColor.textsecondryColor,
+          color: AppColor.textprimaryColor,
         ),
       ),
       actions: [

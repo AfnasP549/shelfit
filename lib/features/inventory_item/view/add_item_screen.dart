@@ -51,7 +51,6 @@ class AddItemScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
 
-
                   //!Quantity
                   CustomTextfield(
                     controller: _quantityController,
@@ -61,7 +60,6 @@ class AddItemScreen extends StatelessWidget {
                     validator: FormValidator.validateQuantity,
                   ),
                   const SizedBox(height: 16),
-
 
                   //!price
                   CustomTextfield(
@@ -74,11 +72,12 @@ class AddItemScreen extends StatelessWidget {
                   const SizedBox(height: 24),
 
                   //!button
-                  Obx(()=> _controller.isAdding.value
-                      ?  Center(child: Lottie.asset('asset/loading.json'),)
-                      :CustomButton(onTap: _submitForm, btnText: 'Add Item')
-                  ),
-                   const SizedBox(height: 8),
+                  Obx(() => _controller.isAdding.value
+                      ? Center(
+                          child: Lottie.asset('asset/loading.json'),
+                        )
+                      : CustomButton(onTap: _submitForm, btnText: 'Add Item', btnColor: AppColor.buttonPrimary,)),
+                  const SizedBox(height: 8),
                 ],
               ),
             )),
@@ -87,31 +86,29 @@ class AddItemScreen extends StatelessWidget {
   }
 
   void _submitForm() async {
-  if(_formKey.currentState!.validate()){
-    final name = _nameController.text.trim();
-    final description = _descriptionController.text.trim();
-    final quantity = int.parse(_quantityController.text.trim());
-    final price = double.parse(_priceController.text.trim());
+    if (_formKey.currentState!.validate()) {
+      final name = _nameController.text.trim();
+      final description = _descriptionController.text.trim();
+      final quantity = int.parse(_quantityController.text.trim());
+      final price = double.parse(_priceController.text.trim());
 
-    print("Adding item: $name"); // Add this for debugging
-    
-    final success = await _controller.addItem(
-      name: name, 
-      description: description, 
-      quantity: quantity, 
-      price: price
-    );
-    
-    if(success){
-      print("Item added successfully, controller has ${_controller.items.length} items"); // Add this
-      Get.back();
-      Get.snackbar('Success', 'Item added successfully',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.green,
-      colorText: AppColor.textprimaryColor,
-      duration: const Duration(seconds: 2),
-      );
+      final success = await _controller.addItem(
+          name: name,
+          description: description,
+          quantity: quantity,
+          price: price);
+
+      if (success) {
+        Get.back();
+        Get.snackbar(
+          '✅ Success',
+          'Item added successfully',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColor.snackBarPrimary,
+          colorText: AppColor.textsecondryColor,
+          duration: const Duration(seconds: 2),
+        );
+      }
     }
   }
-}
 }

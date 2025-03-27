@@ -5,7 +5,6 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:shelfit/core/color/color.dart';
 import 'package:shelfit/features/home/view/home_screen.dart';
 import 'package:shelfit/features/inventory_item/view/inventory_screen.dart';
-import 'package:shelfit/features/inventory_item/view/search_screen.dart';
 import 'package:shelfit/features/report/view/report_screen.dart';
 import 'package:shelfit/features/sales/view/sales_screen.dart';
 
@@ -53,10 +52,10 @@ class _CustomNavBarState extends State<CustomNavBar> {
                   padding: const EdgeInsets.all(8.0),
                   child: GNav(
                     gap: 8,
-                    backgroundColor:  AppColor.bottomprimary,
-                    color:  AppColor.bottomtertiary,
-                    activeColor: AppColor.bottomsecondry,
-                    tabBackgroundColor:  AppColor.bottomprimary,
+                    backgroundColor:  AppColor.secondryColor,
+                    color:  AppColor.bottomIconSecondary,
+                    activeColor: AppColor.bottomIconPrimary,
+                    tabBackgroundColor:  AppColor.bottomsecondry,
                     padding: const EdgeInsets.all(1),
                     onTabChange: (index) {
                       setState(() {
@@ -69,7 +68,7 @@ class _CustomNavBarState extends State<CustomNavBar> {
                         text: 'Home',
                       ),
                       GButton(
-                        icon: Icons.inventory,iconSize: 32,
+                        icon: Icons.inventory,iconSize: 30,
                         text: 'Product',
                       ),
                      

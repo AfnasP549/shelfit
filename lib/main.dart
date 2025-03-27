@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: AppColor.primaryColor,
           appBarTheme: const AppBarTheme(
-          backgroundColor: AppColor.primaryColor,
+          backgroundColor: AppColor.secondryColor,
           foregroundColor: AppColor.textprimaryColor,
         ),
           textTheme: const TextTheme(
@@ -45,6 +45,13 @@ class MyApp extends StatelessWidget {
             backgroundColor: AppColor.textprimaryColor,
             foregroundColor: AppColor.textsecondryColor,
           )
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: AppColor.floatingPrimary
+        ),
+
+        snackBarTheme: SnackBarThemeData(
+          backgroundColor: AppColor.snackBarPrimary
         ),
       
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),

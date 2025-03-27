@@ -1,0 +1,2 @@
+C:/Users/Afnas/Desktop/shelfit/android/app/.cxx/Debug/5l3q2l1u/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Afnas/Desktop/shelfit/android/app/.cxx/Debug/5l3q2l1u/armeabi-v7a/CMakeFiles/rebuild_cache.dir

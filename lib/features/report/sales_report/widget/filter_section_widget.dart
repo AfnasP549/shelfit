@@ -14,7 +14,10 @@ class FilterSectionWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        color: AppColor.secondryColor,
+        decoration: BoxDecoration(
+          color: AppColor.primaryColor,
+          
+        ),
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +27,7 @@ class FilterSectionWidget extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: AppColor.textsecondryColor,
+                color: AppColor.textprimaryColor,
               ),
             ),
             const SizedBox(height: 16),
@@ -32,44 +35,49 @@ class FilterSectionWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Obx(() => InkWell(
-                    onTap: () async {
-                      final DateTime? picked = await showDatePicker(
-                        context: context,
-                        initialDate: controller.startDate.value ?? DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime.now(),
-                      );
-                      if (picked != null) {
-                        controller.setStartDate(picked);
-                      }
-                    },
-                    child: _buildDateContainer(
-                      label: controller.startDate.value == null
-                          ? 'Start Date'
-                          : DateFormat('MMM dd, yyyy').format(controller.startDate.value!),
-                    ),
-                  )),
+                        onTap: () async {
+                          final DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate:
+                                controller.startDate.value ?? DateTime.now(),
+                            firstDate: DateTime(2020),
+                            lastDate: DateTime.now(),
+                          );
+                          if (picked != null) {
+                            controller.setStartDate(picked);
+                          }
+                        },
+                        child: _buildDateContainer(
+                          label: controller.startDate.value == null
+                              ? 'Start Date'
+                              : DateFormat('MMM dd, yyyy')
+                                  .format(controller.startDate.value!),
+                        )
+                        
+                      )),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Obx(() => InkWell(
-                    onTap: () async {
-                      final DateTime? picked = await showDatePicker(
-                        context: context,
-                        initialDate: controller.endDate.value ?? DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime.now(),
-                      );
-                      if (picked != null) {
-                        controller.setEndDate(picked);
-                      }
-                    },
-                    child: _buildDateContainer(
-                      label: controller.endDate.value == null
-                          ? 'End Date'
-                          : DateFormat('MMM dd, yyyy').format(controller.endDate.value!),
-                    ),
-                  )),
+                        onTap: () async {
+                          final DateTime? picked = await showDatePicker(
+                            context: context,
+                            initialDate:
+                                controller.endDate.value ?? DateTime.now(),
+                            firstDate: DateTime(2020),
+                            lastDate: DateTime.now(),
+                          );
+                          if (picked != null) {
+                            controller.setEndDate(picked);
+                          }
+                        },
+                        child: _buildDateContainer(
+                          label: controller.endDate.value == null
+                              ? 'End Date'
+                              : DateFormat('MMM dd, yyyy')
+                                  .format(controller.endDate.value!),
+                        ),
+                      )),
                 ),
               ],
             ),
@@ -80,7 +88,7 @@ class FilterSectionWidget extends StatelessWidget {
                 TextButton.icon(
                   onPressed: controller.resetFilters,
                   icon: const Icon(Icons.refresh),
-                  label: const Text('Reset Filters'),
+                  label: const Text('Reset Filters',style: TextStyle(color: AppColor.textprimaryColor),),
                   style: TextButton.styleFrom(
                     foregroundColor: AppColor.primaryColor,
                   ),
@@ -106,7 +114,9 @@ class FilterSectionWidget extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
-              color: label == 'Start Date' || label == 'End Date' ? Colors.grey : AppColor.textsecondryColor,
+              color: label == 'Start Date' || label == 'End Date'
+                  ? Colors.grey
+                  : AppColor.textprimaryColor,
             ),
           ),
           const Icon(Icons.calendar_today, size: 16),

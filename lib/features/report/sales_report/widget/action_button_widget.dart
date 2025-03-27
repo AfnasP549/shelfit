@@ -11,7 +11,7 @@ class ActionButtonsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      color: AppColor.primaryColor,
+      color: AppColor.secondryColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
