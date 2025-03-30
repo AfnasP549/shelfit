@@ -32,36 +32,39 @@ class _InventoryReportScreenState extends State<InventoryReportScreen> {
       appBar: CustomAppbar(
         title: 'Inventory Report',
         actions: [
-            _buildActionButtonsSection(),
+          _buildActionButtonsSection(),
         ],
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
           return Center(child: Lottie.asset('asset/loading.json'));
         }
-        
-        return Column(
-          children: [
-            FilterSectionItemWidget(controller: controller,),
-            _buildItemsListSection(),
-          ],
+
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              FilterSectionItemWidget(controller: controller),
+              _buildItemsListSection(),
+            ],
+          ),
         );
       }),
     );
   }
+
   // Items list section
   Widget _buildItemsListSection() {
-    return Expanded(
-      child: controller.filteredItems.isEmpty
-          ? _buildEmptyState()
-          : ListView.builder(
-              itemCount: controller.filteredItems.length,
-              padding: const EdgeInsets.all(16),
-              itemBuilder: (context, index) {
-                return _buildItemCard(controller.filteredItems[index], index);
-              },
-            ),
-    );
+    return controller.filteredItems.isEmpty
+        ? _buildEmptyState()
+        : ListView.builder(
+            shrinkWrap: true,   // Important for scrollable content
+            physics: const NeverScrollableScrollPhysics(), // Prevent nested scrolling issues
+            itemCount: controller.filteredItems.length,
+            padding: const EdgeInsets.all(16),
+            itemBuilder: (context, index) {
+              return _buildItemCard(controller.filteredItems[index], index);
+            },
+          );
   }
 
   // Empty state widget
@@ -100,7 +103,7 @@ class _InventoryReportScreenState extends State<InventoryReportScreen> {
   // Item card widget
   Widget _buildItemCard(InventoryModel item, int index) {
     final totalValue = item.price * item.quantity;
-    
+
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
       elevation: 2,
@@ -118,7 +121,7 @@ class _InventoryReportScreenState extends State<InventoryReportScreen> {
               ),
               child: Text(
                 '${index + 1}',
-                style:  TextStyle(
+                style: TextStyle(
                   color: AppColor.textQuaternaryColor,
                   fontWeight: FontWeight.bold,
                 ),
@@ -176,75 +179,74 @@ class _InventoryReportScreenState extends State<InventoryReportScreen> {
   }
 
   // Action buttons section
- Widget _buildActionButtonsSection() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          _buildShareMenu(context),
-        ],
-      ),
-    ],
-  );
-}
+  Widget _buildActionButtonsSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            _buildShareMenu(context),
+          ],
+        ),
+      ],
+    );
+  }
 
-Widget _buildShareMenu(BuildContext context) {
-  return PopupMenuButton<String>(
-    icon: const Icon(Icons.more_vert),
-    tooltip: 'Options',
-    onSelected: (value) async {
-      switch (value) {
-        case 'view':
-          await controller.viewPdf();
-          break;
-        case 'share':
-          await controller.sharePdfReport();
-          break;
-        case 'print':
-          await controller.printReport();
-          break;
-        case 'email':
-          await controller.shareViaEmail();
-          break;
-      }
-    },
-    itemBuilder: (context) => [
-      const PopupMenuItem(
-        value: 'view',
-        child: ListTile(
-          leading: Icon(Icons.visibility),
-          title: Text('View PDF'),
-          contentPadding: EdgeInsets.zero,
+  Widget _buildShareMenu(BuildContext context) {
+    return PopupMenuButton<String>(
+      icon: const Icon(Icons.more_vert),
+      tooltip: 'Options',
+      onSelected: (value) async {
+        switch (value) {
+          case 'view':
+            await controller.viewPdf();
+            break;
+          case 'share':
+            await controller.sharePdfReport();
+            break;
+          case 'print':
+            await controller.printReport();
+            break;
+          case 'email':
+            await controller.shareViaEmail();
+            break;
+        }
+      },
+      itemBuilder: (context) => [
+        const PopupMenuItem(
+          value: 'view',
+          child: ListTile(
+            leading: Icon(Icons.visibility),
+            title: Text('View PDF'),
+            contentPadding: EdgeInsets.zero,
+          ),
         ),
-      ),
-      const PopupMenuItem(
-        value: 'share',
-        child: ListTile(
-          leading: Icon(Icons.share),
-          title: Text('Share'),
-          contentPadding: EdgeInsets.zero,
+        const PopupMenuItem(
+          value: 'share',
+          child: ListTile(
+            leading: Icon(Icons.share),
+            title: Text('Share'),
+            contentPadding: EdgeInsets.zero,
+          ),
         ),
-      ),
-      const PopupMenuItem(
-        value: 'print',
-        child: ListTile(
-          leading: Icon(Icons.print),
-          title: Text('Print'),
-          contentPadding: EdgeInsets.zero,
+        const PopupMenuItem(
+          value: 'print',
+          child: ListTile(
+            leading: Icon(Icons.print),
+            title: Text('Print'),
+            contentPadding: EdgeInsets.zero,
+          ),
         ),
-      ),
-      const PopupMenuItem(
-        value: 'email',
-        child: ListTile(
-          leading: Icon(Icons.email),
-          title: Text('Email'),
-          contentPadding: EdgeInsets.zero,
+        const PopupMenuItem(
+          value: 'email',
+          child: ListTile(
+            leading: Icon(Icons.email),
+            title: Text('Email'),
+            contentPadding: EdgeInsets.zero,
+          ),
         ),
-      ),
-    ],
-  );
-}
-
+      ],
+    );
+  }
 }

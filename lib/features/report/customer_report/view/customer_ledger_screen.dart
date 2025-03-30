@@ -49,11 +49,13 @@ class CustomerLedgerReportScreen extends StatelessWidget {
           );
         }
 
-        return Column(
-          children: [
-            _buildFilterSection(context),
-            Expanded(child: _buildSalesDataList()),
-          ],
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              _buildFilterSection(context),
+              _buildSalesDataList(),
+            ],
+          ),
         );
       }),
     );
@@ -129,10 +131,10 @@ class CustomerLedgerReportScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: Obx(() => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: DropdownButtonFormField<String>(
-                      borderRadius: BorderRadius.circular(40),
-                          decoration:  InputDecoration(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DropdownButtonFormField<String>(
+                          borderRadius: BorderRadius.circular(40),
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Customer',
                             contentPadding:
@@ -154,7 +156,7 @@ class CustomerLedgerReportScreen extends StatelessWidget {
                             }
                           },
                         ),
-                  )),
+                      )),
                 ),
               ],
             ),
@@ -169,14 +171,19 @@ class CustomerLedgerReportScreen extends StatelessWidget {
     return Obx(() {
       if (controller.salesData.isEmpty) {
         return const Center(
-          child: Text(
-            'No sales data found for the selected filters',
-            style: TextStyle(fontStyle: FontStyle.italic),
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Text(
+              'No sales data found for the selected filters',
+              style: TextStyle(fontStyle: FontStyle.italic),
+            ),
           ),
         );
       }
 
       return ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),  // Disable inner list scrolling
+        shrinkWrap: true,  // Fit the content height
         padding: const EdgeInsets.all(8),
         itemCount: controller.salesData.length,
         itemBuilder: (context, index) {
